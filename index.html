@@ -1,0 +1,620 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="format-detection" content="telephone=no, email=no, address=no">
+<meta name="renderer" content="webkit">
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+
+<!-- 微信分享卡片优化 -->
+<title>【建造者招募】千年建筑密码 · Minecraft特遣任务</title>
+<meta name="description" content="🎮 检测到MC高玩基因匹配度97.3%。1000年前中国工匠的建造密码，等你用WorldEdit+AI破解。不是作业，是探案。不是考试，是建造。">
+
+<!-- Open Graph / 微信抓取 -->
+<meta property="og:type" content="article">
+<meta property="og:title" content="【建造者招募】千年建筑密码 · Minecraft特遣任务">
+<meta property="og:description" content="🎮 检测到MC高玩基因匹配度97.3%。1000年前中国工匠的建造密码，等你用WorldEdit+AI破解。不是作业，是探案。不是考试，是建造。">
+<meta property="og:site_name" content="PROJECT ARCHITECT">
+<meta property="og:image" content="https://placehold.co/1200x630/0a0a12/5D8C3A?text=PROJECT+ARCHITECT&font=roboto">
+
+<!-- Twitter / 通用 -->
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="【建造者招募】千年建筑密码 · Minecraft特遣任务">
+<meta name="twitter:description" content="🎮 检测到MC高玩基因匹配度97.3%。1000年前中国工匠的建造密码，等你用WorldEdit+AI破解。">
+
+<style>
+  /* ===== 系统字体栈（完全兼容微信，无外部依赖） ===== */
+  :root {
+    --mc-green: #5D8C3A;
+    --mc-dark-green: #3A5E2B;
+    --mc-gold: #F4D142;
+    --mc-red: #B02E26;
+    --mc-blue: #2C5E8F;
+    --bg: #0a0a12;
+    --bg-card: rgba(20, 22, 35, 0.88);
+    --text: #e8e8e8;
+    --text-dim: #999;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+
+  html {
+    scroll-behavior: smooth;
+    -webkit-text-size-adjust: 100%;
+    background: var(--bg);
+  }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: -apple-system, "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", "Helvetica Neue", Arial, sans-serif;
+    overflow-x: hidden;
+    min-height: 100vh;
+    line-height: 1.75;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  /* ===== 像素网格背景 ===== */
+  .pixel-grid {
+    position: fixed;
+    inset: 0;
+    background-image:
+      linear-gradient(rgba(93,140,58,0.035) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(93,140,58,0.035) 1px, transparent 1px);
+    background-size: 32px 32px;
+    z-index: 0;
+    pointer-events: none;
+  }
+
+  /* ===== 粒子层 ===== */
+  #particles {
+    position: fixed;
+    inset: 0;
+    z-index: 0;
+    pointer-events: none;
+    overflow: hidden;
+  }
+  .particle {
+    position: absolute;
+    width: 6px; height: 6px;
+    background: var(--mc-green);
+    opacity: 0;
+    animation: floatParticle 10s infinite ease-in-out;
+  }
+  @keyframes floatParticle {
+    0% { transform: translateY(100vh) rotate(0deg); opacity: 0; }
+    8% { opacity: 0.35; }
+    92% { opacity: 0.35; }
+    100% { transform: translateY(-10vh) rotate(360deg); opacity: 0; }
+  }
+
+  /* ===== 容器 ===== */
+  .wrap {
+    position: relative;
+    z-index: 1;
+    max-width: 720px;
+    margin: 0 auto;
+    padding: 0 20px 80px;
+  }
+
+  /* ===== 像素字体栈（无外部依赖） ===== */
+  .pixel {
+    font-family: "Courier New", "SF Mono", "Menlo", "Monaco", "Consolas", "Liberation Mono", monospace;
+    font-weight: 900;
+    letter-spacing: 0.08em;
+  }
+
+  /* ===== 英雄区 ===== */
+  .hero {
+    min-height: 100vh;
+    min-height: 100dvh; /* 适配微信浏览器地址栏 */
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    position: relative;
+    padding: 60px 0 40px;
+  }
+
+  .hero-badge {
+    display: inline-block;
+    border: 2px solid var(--mc-gold);
+    color: var(--mc-gold);
+    padding: 8px 14px;
+    font-size: 11px;
+    letter-spacing: 2px;
+    margin-bottom: 28px;
+    animation: fadeInDown 0.8s ease-out;
+    word-break: keep-all;
+  }
+
+  .hero h1 {
+    font-size: clamp(26px, 7.5vw, 52px);
+    color: var(--mc-gold);
+    text-shadow: 3px 3px 0px rgba(0,0,0,0.5), 0 0 30px rgba(244,209,66,0.15);
+    line-height: 1.35;
+    margin-bottom: 18px;
+    animation: fadeInUp 0.8s ease-out 0.2s both;
+    word-break: keep-all;
+  }
+
+  .hero-sub {
+    font-size: 15px;
+    color: var(--text-dim);
+    max-width: 460px;
+    margin-bottom: 36px;
+    padding: 0 10px;
+    animation: fadeInUp 0.8s ease-out 0.4s both;
+  }
+
+  .scroll-hint {
+    position: absolute;
+    bottom: 30px;
+    animation: bounce 2s infinite;
+    color: var(--mc-green);
+    font-size: 22px;
+  }
+
+  /* ===== 卡片 ===== */
+  .card {
+    background: var(--bg-card);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border: 1px solid rgba(255,255,255,0.07);
+    border-radius: 18px;
+    padding: 28px 24px;
+    margin: 20px 0;
+    position: relative;
+    overflow: hidden;
+    opacity: 0;
+    transform: translateY(36px);
+    transition: all 0.55s cubic-bezier(0.22, 1, 0.36, 1);
+  }
+  .card.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  .card::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0; height: 3px;
+    background: linear-gradient(90deg, var(--mc-green), var(--mc-gold));
+    opacity: 0.55;
+  }
+
+  .card-title {
+    font-size: 19px;
+    font-weight: 800;
+    color: var(--mc-gold);
+    margin-bottom: 14px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    line-height: 1.4;
+  }
+
+  .card-body { font-size: 15px; color: #c8c8c8; }
+  .card-body strong { color: var(--mc-gold); font-weight: 700; }
+  .card-body p { margin-bottom: 10px; }
+  .card-body p:last-child { margin-bottom: 0; }
+
+  /* ===== 标签 ===== */
+  .tag {
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    background: rgba(93,140,58,0.12);
+    border: 1px solid rgba(93,140,58,0.35);
+    color: var(--mc-green);
+    padding: 5px 12px;
+    border-radius: 8px;
+    font-size: 13px;
+    font-weight: 700;
+    margin: 3px;
+    line-height: 1.4;
+  }
+
+  /* ===== 装备卡片 ===== */
+  .gear-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(170px, 1fr));
+    gap: 14px;
+    margin-top: 18px;
+  }
+  .gear-item {
+    background: rgba(0,0,0,0.25);
+    border: 1px solid rgba(255,255,255,0.05);
+    border-radius: 14px;
+    padding: 22px 14px;
+    text-align: center;
+    transition: transform 0.25s, border-color 0.25s;
+  }
+  .gear-item:active { transform: scale(0.96); }
+  .gear-icon { font-size: 36px; margin-bottom: 10px; line-height: 1; }
+  .gear-name { font-weight: 800; color: var(--mc-gold); margin-bottom: 5px; font-size: 15px; }
+  .gear-desc { font-size: 13px; color: #888; line-height: 1.65; }
+
+  /* ===== 进度条 ===== */
+  .match-bar {
+    background: rgba(255,255,255,0.06);
+    border-radius: 10px;
+    height: 22px;
+    overflow: hidden;
+    margin: 14px 0;
+    position: relative;
+  }
+  .match-fill {
+    height: 100%;
+    width: 0%;
+    background: linear-gradient(90deg, var(--mc-green), var(--mc-gold));
+    border-radius: 10px;
+    transition: width 2.2s cubic-bezier(0.22, 1, 0.36, 1);
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    padding-right: 10px;
+    font-size: 11px;
+    font-weight: 900;
+    color: #000;
+    font-family: "Courier New", monospace;
+  }
+
+  /* ===== 承诺列表 ===== */
+  .promise-list {
+    list-style: none;
+    margin-top: 14px;
+  }
+  .promise-list li {
+    padding: 9px 0 9px 30px;
+    position: relative;
+    border-bottom: 1px solid rgba(255,255,255,0.04);
+    font-size: 15px;
+    line-height: 1.7;
+  }
+  .promise-list li::before {
+    content: '✓';
+    position: absolute;
+    left: 0;
+    top: 9px;
+    color: var(--mc-green);
+    font-weight: 900;
+    font-size: 17px;
+  }
+  .promise-list li.cross::before {
+    content: '✕';
+    color: var(--mc-red);
+  }
+
+  /* ===== CTA ===== */
+  .cta-wrap {
+    text-align: center;
+    padding: 50px 0 30px;
+  }
+  .btn-challenge {
+    display: inline-block;
+    background: linear-gradient(180deg, var(--mc-green), var(--mc-dark-green));
+    color: #fff;
+    font-family: "Courier New", "SF Mono", "Menlo", monospace;
+    font-weight: 900;
+    font-size: 15px;
+    letter-spacing: 0.05em;
+    padding: 22px 44px;
+    border: none;
+    border-bottom: 6px solid #25421b;
+    border-radius: 4px;
+    cursor: pointer;
+    text-decoration: none;
+    position: relative;
+    top: 0;
+    transition: all 0.12s;
+    box-shadow: 0 8px 30px rgba(93,140,58,0.25);
+    -webkit-appearance: none;
+    appearance: none;
+    word-break: keep-all;
+  }
+  .btn-challenge:hover {
+    background: linear-gradient(180deg, #6da34a, var(--mc-dark-green));
+    box-shadow: 0 8px 40px rgba(93,140,58,0.4);
+  }
+  .btn-challenge:active {
+    top: 6px;
+    border-bottom: 0px solid transparent;
+    box-shadow: 0 2px 8px rgba(93,140,58,0.2);
+  }
+
+  .success-msg {
+    display: none;
+    margin-top: 26px;
+    padding: 22px;
+    background: rgba(93,140,58,0.08);
+    border: 2px solid var(--mc-green);
+    border-radius: 14px;
+    animation: fadeInUp 0.5s ease-out;
+  }
+  .success-msg.show { display: block; }
+
+  /* ===== 像素塔 ===== */
+  .pixel-tower {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: 26px auto;
+    gap: 2px;
+  }
+  .tower-tier {
+    height: 12px;
+    background: linear-gradient(90deg, #6b4c2a, #8a6238);
+    border-radius: 2px;
+    position: relative;
+  }
+  .tower-tier::after {
+    content: '';
+    position: absolute;
+    top: -3px; left: 50%; transform: translateX(-50%);
+    width: 120%; height: 3px;
+    background: #3a5e2b;
+    border-radius: 1px;
+  }
+
+  /* ===== 分隔线 ===== */
+  .divider {
+    height: 1px;
+    background: linear-gradient(90deg, transparent, rgba(244,209,66,0.25), transparent);
+    margin: 36px 0;
+  }
+
+  /* ===== 底部 ===== */
+  .footer {
+    text-align: center;
+    padding: 36px 0;
+    color: #444;
+    font-size: 12px;
+  }
+
+  /* ===== 动画 ===== */
+  @keyframes fadeInDown {
+    from { opacity: 0; transform: translateY(-18px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+  @keyframes fadeInUp {
+    from { opacity: 0; transform: translateY(26px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+  @keyframes bounce {
+    0%, 20%, 50%, 80%, 100% { transform: translateY(0); }
+    40% { transform: translateY(-10px); }
+    60% { transform: translateY(-5px); }
+  }
+
+  /* ===== 微信浏览器特殊适配 ===== */
+  @media (max-width: 600px) {
+    .hero h1 { font-size: 24px; }
+    .card { padding: 22px 18px; margin: 16px 0; border-radius: 16px; }
+    .gear-grid { grid-template-columns: 1fr; }
+    .btn-challenge { font-size: 14px; padding: 20px 36px; width: 90%; max-width: 340px; }
+    .hero-badge { font-size: 10px; padding: 6px 10px; }
+    .tag { font-size: 12px; padding: 4px 10px; }
+    .wrap { padding: 0 16px 60px; }
+  }
+
+  /* 防止微信字体放大 */
+  body { -webkit-text-size-adjust: 100% !important; }
+</style>
+</head>
+<body>
+
+<div class="pixel-grid"></div>
+<div id="particles"></div>
+
+<div class="wrap">
+
+  <!-- 英雄区 -->
+  <section class="hero">
+    <div class="hero-badge pixel">TOP SECRET // ENCRYPTED</div>
+    <h1 class="pixel" style="text-shadow: 3px 3px 0px rgba(0,0,0,0.5), 0 0 30px rgba(244,209,66,0.15);">PROJECT:<br>ARCHITECT</h1>
+    <p class="hero-sub">建造者计划 · 第2026号任务<br>一封只发送给特定基因携带者的加密讯息</p>
+    <div class="scroll-hint">▼</div>
+  </section>
+
+  <!-- 身份认证 -->
+  <div class="card" data-animate>
+    <div class="card-title">🔍 系统正在扫描你的特征...</div>
+    <div class="card-body">
+      <p style="margin-bottom:12px">检测到以下高匹配特征：</p>
+      <div style="margin-bottom:10px">
+        <span class="tag">🎮 Minecraft 资深玩家</span>
+        <span class="tag">🧱 乐高建造师</span>
+        <span class="tag">🔢 数学直觉者</span>
+      </div>
+      <div class="match-bar">
+        <div class="match-fill" data-width="97.3">97.3%</div>
+      </div>
+      <p style="font-size:14px;color:var(--mc-green);font-weight:700;margin-top:10px">✓ 结论：你就是我们要找的人。不需要别人认同，数据已经证明。</p>
+    </div>
+  </div>
+
+  <!-- 任务简报 -->
+  <div class="card" data-animate>
+    <div class="card-title">📡 任务简报</div>
+    <div class="card-body">
+      <p><strong>目标：</strong>破解一个存在了<strong>1000年</strong>的建筑密码。</p>
+      <p style="margin-top:8px">1000年前，中国工匠建造了一座世界奇迹。没有钉子，没有螺丝，全靠木头咬合。它经历了地震、战火，至今屹立。</p>
+      <p style="margin-top:8px">但没人完全知道：<strong>他们用了什么数学规律？</strong></p>
+      <p style="margin-top:8px;color:var(--mc-gold)">你的任务不是做题，是探案。不是考试，是建造。</p>
+
+      <div class="pixel-tower">
+        <div class="tower-tier" style="width:40px"></div>
+        <div class="tower-tier" style="width:60px"></div>
+        <div class="tower-tier" style="width:80px"></div>
+        <div class="tower-tier" style="width:100px"></div>
+        <div class="tower-tier" style="width:120px"></div>
+      </div>
+      <p style="text-align:center;font-size:12px;color:#555">[ 信号模糊 · 建筑轮廓待解锁 ]</p>
+    </div>
+  </div>
+
+  <!-- 装备 -->
+  <div class="card" data-animate>
+    <div class="card-title">🎒 你的初始装备</div>
+    <div class="card-body">
+      <p style="margin-bottom:8px">这次任务，你不会赤手空拳。</p>
+      <div class="gear-grid">
+        <div class="gear-item">
+          <div class="gear-icon">🤖</div>
+          <div class="gear-name">AI 外脑</div>
+          <div class="gear-desc">不是替代你思考，是帮你查资料、算数字。你是指挥官，AI是你的士兵。</div>
+        </div>
+        <div class="gear-item">
+          <div class="gear-icon">⛏️</div>
+          <div class="gear-name">WorldEdit 神器</div>
+          <div class="gear-desc">MC里的作弊级工具。一行命令造一根柱子，你将用它建造一座真正的千年建筑。</div>
+        </div>
+        <div class="gear-item">
+          <div class="gear-icon">📐</div>
+          <div class="gear-name">数学直觉核心</div>
+          <div class="gear-desc">你本来就有的东西。这次不是刷题，是用它解决一个真问题。</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 成果 -->
+  <div class="card" data-animate>
+    <div class="card-title">🏆 任务完成后，你将拥有</div>
+    <div class="card-body">
+      <ul class="promise-list">
+        <li>一篇<strong>署名的数学论文</strong>。初中就能有，高中大学都羡慕。</li>
+        <li>一座<strong>MC里的巨型建筑</strong>。录个视频，全网独一份。</li>
+        <li>一套<strong>别人没有的思维方法</strong>：用AI+数学解决任何问题。这是未来10年最值钱的能力。</li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- 承诺 -->
+  <div class="card" data-animate>
+    <div class="card-title">🛡️ 我们的承诺</div>
+    <div class="card-body">
+      <ul class="promise-list">
+        <li><strong>没有标准答案。</strong>你的发现就是你的答案。</li>
+        <li><strong>没有填鸭。</strong>你查什么、学什么，你自己定。</li>
+        <li><strong>没有家长代劳。</strong>他们只能给你递工具，不能替你思考。</li>
+        <li class="cross">没有无聊。</li>
+      </ul>
+      <p style="margin-top:14px;color:var(--mc-gold);font-weight:700">这不是作业。这是一场你主导的建造。</p>
+    </div>
+  </div>
+
+  <div class="divider"></div>
+
+  <!-- 为什么是你 -->
+  <div class="card" data-animate>
+    <div class="card-title">🧬 为什么必须是你？</div>
+    <div class="card-body">
+      <p>因为新时代的学习方式已经变了。</p>
+      <p style="margin-top:8px">以前：老师喂什么，你吃什么。<br>
+      现在：给你一个真问题，你自己找工具、自己搭框架、自己出结论。</p>
+      <p style="margin-top:8px">这种能力——<strong>现学现用、跨界融合、AI增强</strong>——是以后脑力劳动者的基本配置。</p>
+      <p style="margin-top:8px">你比别人早一步开始，就多一步优势。</p>
+      <p style="margin-top:8px;color:var(--mc-green);font-weight:700">而且，你能用Minecraft造一座千年古塔。这本身就很酷。</p>
+    </div>
+  </div>
+
+  <!-- CTA -->
+  <div class="cta-wrap">
+    <button class="btn-challenge pixel" onclick="acceptMission()">[ 接受挑战 ]</button>
+
+    <div class="success-msg" id="successMsg">
+      <div class="pixel" style="color:var(--mc-gold);font-size:13px;margin-bottom:10px;letter-spacing:0.05em">MISSION ACCEPTED</div>
+      <p style="color:#bbb;font-size:15px">加密频道已建立。</p>
+      <p style="color:var(--mc-green);font-weight:700;margin-top:6px">请向你的任务指挥官（家长）索取详细简报。</p>
+      <p style="color:#555;font-size:12px;margin-top:10px">任务代号：ARCHITECT // 2026</p>
+    </div>
+  </div>
+
+  <div class="footer">
+    <p class="pixel" style="color:#333;font-size:10px;margin-bottom:6px;letter-spacing:0.05em">PROJECT: ARCHITECT</p>
+    <p>本页面由家长委托生成 · 仅供教育用途</p>
+  </div>
+
+</div>
+
+<script>
+  // 生成粒子
+  (function(){
+    var container = document.getElementById('particles');
+    for (var i = 0; i < 18; i++) {
+      var p = document.createElement('div');
+      p.className = 'particle';
+      p.style.left = Math.random() * 100 + '%';
+      p.style.animationDelay = Math.random() * 10 + 's';
+      p.style.animationDuration = (7 + Math.random() * 7) + 's';
+      container.appendChild(p);
+    }
+  })();
+
+  // 滚动动画
+  (function(){
+    var observer = new IntersectionObserver(function(entries){
+      entries.forEach(function(entry){
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+          var fill = entry.target.querySelector('.match-fill');
+          if (fill) {
+            setTimeout(function(){ fill.style.width = fill.dataset.width + '%'; }, 250);
+          }
+        }
+      });
+    }, { threshold: 0.12 });
+
+    document.querySelectorAll('[data-animate]').forEach(function(el){ observer.observe(el); });
+  })();
+
+  // 接受任务
+  function acceptMission(){
+    var btn = document.querySelector('.btn-challenge');
+    var msg = document.getElementById('successMsg');
+    btn.style.display = 'none';
+    msg.classList.add('show');
+
+    // 简单confetti
+    var colors = ['#5D8C3A', '#F4D142', '#B02E26', '#2C5E8F'];
+    for (var i = 0; i < 24; i++) {
+      var conf = document.createElement('div');
+      conf.style.cssText = 'position:fixed;left:50%;top:50%;width:7px;height:7px;background:'+colors[Math.floor(Math.random()*4)]+';z-index:9999;pointer-events:none;border-radius:1px;';
+      document.body.appendChild(conf);
+      var angle = Math.random() * Math.PI * 2;
+      var velocity = 4 + Math.random() * 9;
+      var x = 0, y = 0, vx = Math.cos(angle)*velocity, vy = Math.sin(angle)*velocity;
+      var frame = 0;
+      var anim = setInterval(function(c, vx0, vy0){
+        return function(){
+          x += vx0; y += vy0; vy0 += 0.4;
+          c.style.transform = 'translate('+x+'px,'+y+'px)';
+          c.style.opacity = Math.max(0, 1 - Math.abs(y)/350);
+          if (++frame > 60 || Math.abs(y) > 350) { clearInterval(anim); c.remove(); }
+        };
+      }(conf, vx, vy), 16);
+    }
+  }
+
+  // 微信浏览器兼容性：阻止双击缩放
+  var lastTouchEnd = 0;
+  document.addEventListener('touchend', function(e){
+    var now = Date.now();
+    if (now - lastTouchEnd <= 300) { e.preventDefault(); }
+    lastTouchEnd = now;
+  }, false);
+
+  // 阻止默认下拉刷新（部分安卓微信浏览器）
+  document.body.addEventListener('touchmove', function(e){
+    if (e.target.closest('.wrap')) { /* allow scroll */ }
+  }, { passive: true });
+</script>
+
+</body>
+</html>
